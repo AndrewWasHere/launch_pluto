@@ -1,0 +1,22 @@
+#! /bin/bash
+# Launch a Pluto notebook instance.
+# Use:
+#   pluto [notebook directory]
+
+# Change to notebook directory, if provided.
+if [ ! -z ${1} ]
+then
+    pushd ${1} >> /dev/null || exit 1
+fi
+
+# Launch Pluto.
+julia << EOF
+import Pluto
+Pluto.run()
+EOF
+
+# Restore starting directory.
+if [ ! -z ${1} ]
+then
+    popd >> /dev/null
+fi
